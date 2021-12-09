@@ -441,7 +441,7 @@ interface IWAVAX9 is IERC20 {
     function deposit() external payable;
 }
 
-contract TimeBondDepository is Ownable {
+contract RugBondDepository is Ownable {
 
     using FixedPoint for *;
     using SafeERC20 for IERC20;
@@ -480,7 +480,7 @@ contract TimeBondDepository is Ownable {
     mapping( address => Bond ) public bondInfo; // stores bond information for depositors
 
     uint public totalDebt; // total value of outstanding bonds; used for pricing
-    uint32 public lastDecay; // reference Rug for debt decay
+    uint32 public lastDecay; // reference time for debt decay
 
 
     mapping (address => bool) public allowedZappers;
@@ -511,7 +511,7 @@ contract TimeBondDepository is Ownable {
         uint rate; // increment
         uint target; // BCV when adjustment finished
         uint32 buffer; // minimum length (in seconds) between adjustments
-        uint32 lastTime; // Rug when last adjustment made
+        uint32 lastTime; // time when last adjustment made
     }
 
 
@@ -520,14 +520,14 @@ contract TimeBondDepository is Ownable {
     /* ======== INITIALIZATION ======== */
 
     constructor ( 
-        address _Time,
+        address _Rug,
         address _principle,
         address _treasury, 
         address _DAO,
         address _feed
     ) {
-        require( _Time != address(0) );
-        Rug = IERC20(_Time);
+        require( _Rug != address(0) );
+        Rug = IERC20(_Rug);
         require( _principle != address(0) );
         principle = IWAVAX9(_principle);
         require( _treasury != address(0) );

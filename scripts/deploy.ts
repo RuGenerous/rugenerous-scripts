@@ -15,7 +15,7 @@ async function main() {
 
   const rug = "0xb8EF3a190b68175000B74B4160d325FD5024760e";
 
-  const principle = ""; //To be set
+  const principle = "0x133933fc4316cb5f058321898507a32248f0a007"; //To be set
   
   const treasury = "0x2F87A9550f19666cEF5De29c5F613966cf164BE6";
   const dao = "0x2F87A9550f19666cEF5De29c5F613966cf164BE6";
@@ -24,7 +24,7 @@ async function main() {
 
 
   // We get the contract to deploy
-  const BondDepository = await ethers.getContractFactory("BondDepository");
+  const BondDepository = await ethers.getContractFactory("contracts/BondDepository.sol:RugBondDepository");
   const bondDepository = await BondDepository.deploy(rug, principle, treasury, dao, bondCalculator); //Set parameters
 
   await bondDepository.deployed();
